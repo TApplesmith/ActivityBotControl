@@ -1,1 +1,11 @@
 Code for ECE 111 final project
+
+Exposed motor commands:
+	drive_goto(int distLeft, int distRight)
+	drive_speed(int left, int right)
+	
+	
+Exposed sensors:
+	drive_getTicks() left, right
+	ping()
+	more to come
