@@ -25,7 +25,11 @@ int main()
         txInt32(n); //sending incrementing numbers
         n+=10000; 
         break;
-        
+      
+      case 'b':
+        txInt32(rxInt32()*2); //double received number
+        break;  
+      
       case '?':
         txInt32(42);
         break;
