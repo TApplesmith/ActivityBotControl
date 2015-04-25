@@ -3,6 +3,8 @@
 
 void startComs(int rxpin, int txpin, int baudrate, int timeout);
 
-void sendInt32(int i);
+void txInt32(int i);
 
 int rxCommand();
+
+int rxInt32();

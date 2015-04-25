@@ -21,20 +21,24 @@ int main()
     switch(rxCommand()) //wait for a control byte
     {
       case 'a':
-        sendInt32(n); //sending incrementing numbers
+        txInt32(n); //sending incrementing numbers
         n+=10000; 
         break;
-        
+      
+      case 'b':
+        txInt32(rxInt32()*2); //double received number
+        break;  
+      
       case '?':
-        sendInt32(42);
+        txInt32(42);
         break;
         
       case -1:    //case when timed out
-        sendInt32(314);
+        txInt32(314);
         break;
         
       default:    //unknown command
-        sendInt32(2718);
+        txInt32(2718);
     }        
     
     //Note: The computer can sometimes miss bytes 

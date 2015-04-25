@@ -10,15 +10,25 @@ void startComs(int rxpin, int txpin, int baudrate, int timeout)
   tout = timeout;
 }
 
-void sendInt32(int i) //sends in little endian
+void txInt32(int i) //sends in little endian
 {
   for(int j = 0; j < 4; j++)
   {
-    writeChar(conn, (char) (i>>(8*j)) );    //cast to char truncates int from 32 bits to 8 bits
-  }                               //bitshifting before cast gets 4 bytes with the same bits as the int
+    writeChar(conn, (i>>(8*j)) & 0xff);    //& 0xff truncates int from 32 bits to 8 bits
+  }                               //bitshifting before truncate gets 4 bytes with the same bits as the int
 }
 
 int rxCommand()
 {
   return fdserial_rxTime(conn, tout);
 }
+
+int rxInt32()
+{
+  int received = 0;
+  for(int j = 0; j < 4; j++)
+  {
+    received += fdserial_rxTime(conn, tout)<<(8*j);
+  }
+  return received;
+}  
