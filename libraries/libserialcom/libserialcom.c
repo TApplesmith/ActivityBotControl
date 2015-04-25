@@ -18,9 +18,25 @@ int main()
   while(1)                                    
   {
     
-    rxCommand(); //wait for a control byte
-    sendInt32(n); //sending incrementing numbers
-    n+=10000; 
+    switch(rxCommand()) //wait for a control byte
+    {
+      case 'a':
+        sendInt32(n); //sending incrementing numbers
+        n+=10000; 
+        break;
+        
+      case '?':
+        sendInt32(42);
+        break;
+        
+      case -1:    //case when timed out
+        sendInt32(314);
+        break;
+        
+      default:    //unknown command
+        sendInt32(2718);
+    }        
+    
     //Note: The computer can sometimes miss bytes 
     //when the bytes are coming really fast 
   }
