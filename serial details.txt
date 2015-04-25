@@ -1,0 +1,7 @@
+computer sends control byte
+robot reacts
+	send data back
+		computer receives data
+	get ready to receive data
+		computer sends data
+		
