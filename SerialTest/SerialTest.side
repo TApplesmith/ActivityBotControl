@@ -1,4 +1,6 @@
 SerialTest.c
+-I ./../libraries/libserialcom
+-L ./../libraries/libserialcom
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -6,4 +8,5 @@ SerialTest.c
 >-Wall
 >-fno-exceptions
 >defs::-std=c99
+>linker::-lserialcom
 >BOARD::GENERIC

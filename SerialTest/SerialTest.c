@@ -1,6 +1,6 @@
 
 #include "fdserial.h"
-#include "SerialComs.h"
+#include "serialcom.h"
 
 #define RX_PIN 31
 #define TX_PIN 30
