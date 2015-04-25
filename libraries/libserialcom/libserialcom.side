@@ -1,0 +1,12 @@
+libserialcom.c
+serialcom.h
+serialcom.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-Wall
+>-fno-exceptions
+>defs::-std=c99
+>-create_library
+>BOARD::ACTIVITYBOARD
