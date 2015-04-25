@@ -11,13 +11,14 @@ int main()
   simpleterm_close(); //close default terminal, I want to use those pins
                       //if the default uart pins are not used, this isn't needed
                       
-  startComs(RX_PIN, TX_PIN, BAUD); //this will go to the bluetooth module eventually
+  startComs(RX_PIN, TX_PIN, BAUD, 1000); //this will go to the bluetooth module eventually
   
-  rxCharblock(); //wait for a control byte
   
   int n = 0;
   while(1)                                    
   {
+    
+    rxCommand(); //wait for a control byte
     sendInt32(n); //sending incrementing numbers
     n+=10000; 
     //Note: The computer can sometimes miss bytes 

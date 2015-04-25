@@ -2,10 +2,12 @@
 #include "serialcom.h"
 
 static fdserial *conn;
+static int tout = 1000;
 
-void startComs(int rxpin, int txpin, int baudrate)
+void startComs(int rxpin, int txpin, int baudrate, int timeout)
 {
   conn = fdserial_open(rxpin, txpin, 0, baudrate);
+  tout = timeout;
 }
 
 void sendInt32(int i) //sends in little endian
@@ -16,7 +18,7 @@ void sendInt32(int i) //sends in little endian
   }                               //bitshifting before cast gets 4 bytes with the same bits as the int
 }
 
-char rxCharblock()
+int rxCommand()
 {
-  return fdserial_rxChar(conn);
+  return fdserial_rxTime(conn, tout);
 }
