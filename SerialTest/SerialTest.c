@@ -1,11 +1,12 @@
 
-#include "simpletools.h"                      // Include simpletools header
 #include "fdserial.h"
 
 #define RX_PIN 31
 #define TX_PIN 30
 #define BAUD 115200
 
+
+    
 void sendInt32(fdserial* connection, int i) //sends in little endian
 {
   writeChar(connection, (char)i);
@@ -29,9 +30,8 @@ int main()
     int i = n;
     sendInt32(wireless, n); //sending incrementing numbers
     n+=10000; 
-    pause(2); //the computer can sometimes miss bytes 
-            //when the bytes are coming really fast 
-            //for an extended period of time
-            
+    //the computer can sometimes miss bytes 
+    //when the bytes are coming really fast 
+    //for an extended period of time
   }
 }
