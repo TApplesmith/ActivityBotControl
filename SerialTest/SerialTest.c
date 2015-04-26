@@ -4,7 +4,7 @@
 
 #define RX_PIN 31
 #define TX_PIN 30
-#define BAUD 115200
+#define BAUD 9600
 
 
 int main()
