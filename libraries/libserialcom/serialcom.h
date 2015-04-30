@@ -17,6 +17,8 @@ void startComs(int rxpin, int txpin, int baudrate, int timeout);
  */
 void txInt32(int i);
 
+//void txChar(
+
 /**
  *@brief receive a byte from the UART. This function is blocking.
  *
