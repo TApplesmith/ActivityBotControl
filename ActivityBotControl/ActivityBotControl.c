@@ -1,37 +1,53 @@
 
-#include "simpletools.h"                      // Include simpletools header
-#include "ping.h"                             // Include ping header
-#include "abdrive.h"
+#include "fdserial.h"
+#include "serialcom.h"
 
-#define RX_PIN 31
-#define TX_PIN 30
-#define BAUD 115200
+#include "serialcom.h"
 
-#define PING_PIN 8
+#define RX_PIN 11//31//11
+#define TX_PIN 10//30//10
+#define BAUD 9600
 
-#define MAX_SPEED 0
 
-int main()                                    // main function
+int main()
 {
-  simpleterm_reopen(RX_PIN, TX_PIN, 0, BAUD);
-  //drive_open();
-  //drive_goto(0,0);
-  //drive_setMaxSpeed(MAX_SPEED);
-  int l=1;
-  int r=1;
-
-  drive_speed(-10,-10);
-  pause(1000);
-    drive_speed(0,0);
-  while(1)                                    // Repeat indefinitely
+  //simpleterm_close(); //close default terminal, I want to use those pins
+                      //if the default uart pins are not b nused, this isn't needed
+                      
+  startComs(RX_PIN, TX_PIN, BAUD, 1000); //this will go to the bluetooth module eventually
+  
+  
+  int n = 0;
+  while(1)                                    
   {
-    for(int i = 0; i < 100; i++) 
+    int command = rxCommand();
+    switch(command) //wait for a control byte
     {
-      drive_getTicks(&l,&r); //only works when actually moving, otherwise no response
-      int ultrasonic = ping(PING_PIN);
-      //print("ultrasonic %d uS\n",ultrasonic);
-      print("%d %d\n", l, r);
-      pause(50);
-    }    
+      case 'a':
+        txInt32(n); //sending incrementing numbers
+        n+=10000; 
+        break;
+      
+      case 'b':
+        txInt32(rxInt32()*2); //double received number
+        break;  
+      
+      case '?':
+        txInt32(42);
+        break;
+        
+      case -1:    //case when timed out
+        txInt32(314);
+        break;
+        
+      default:    //unknown command
+        txInt32(2718);
+        txInt32(command);
+        print(command);
+        print("\n%d\n",command);
+    }        
+    
+    //Note: The computer can sometimes miss bytes 
+    //when the bytes are coming really fast 
   }
 }
